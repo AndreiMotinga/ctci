@@ -13,6 +13,10 @@ describe "one_away" do
     it "returns true" do
       expect(one_away("pale", "bale")).to eq true
     end
+
+    it "returns false" do
+      expect(one_away("aaae", "aae")).to eq true
+    end
   end
 
   context "when more than one permutation away" do
