@@ -1,4 +1,4 @@
-require_relative "../../ch1_arrays_and_strings/is_unique"
+require_relative "../../arrays_and_strings/is_unique"
 
 describe "unique?" do
   it "returns true when characters are uniq" do

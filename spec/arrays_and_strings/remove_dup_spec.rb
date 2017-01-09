@@ -1,4 +1,4 @@
-require_relative "../../ch1_arrays_and_strings/remove_dup"
+require_relative "../../arrays_and_strings/remove_dup"
 
 describe "#remove_dup" do
   context "all characters are uniq" do

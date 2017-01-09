@@ -1,4 +1,4 @@
-require_relative "../../ch1_arrays_and_strings/permutation"
+require_relative "../../arrays_and_strings/permutation"
 
 describe "#permutation" do
   it "returns true when second is permutation of first" do

@@ -1,4 +1,4 @@
-require_relative "../../ch1_arrays_and_strings/palindrome_permutation"
+require_relative "../../arrays_and_strings/palindrome_permutation"
 
 describe "#palindrome_permutation" do
   it "returns true if string is palindrome permutation" do
