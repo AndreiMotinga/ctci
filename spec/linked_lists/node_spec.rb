@@ -44,6 +44,63 @@ describe Node do
   #     expect(head)
   #   end
   # end
+  describe "#remove_dups" do
+    it "removes nodes with duplicate values" do
+      head = Node.generate_nodes([1,3,2,2,4,3,5])
+      head.remove_dups
+      expected = head.print_nodes # todo: rename to list
+      result = "1 -> 3 -> 2 -> 4 -> 5"
+
+      expect(expected).to eq result
+    end
+  end
+
+  describe "#remove" do
+    context "when prev and next exist" do
+      it "removes node by linking previous to the next" do
+        prev = Node.new 1
+        current = Node.new 2
+        next_node = Node.new 3
+        prev.next = current
+        current.prev = prev
+        current.next = next_node
+        next_node.prev = current
+
+        current.remove
+
+        expect(prev.next).to eq next_node
+        expect(next_node.prev).to eq prev
+      end
+    end
+
+    context "when next doesn't exist" do
+      it "links only previous" do
+        prev = Node.new 1
+        current = Node.new 2
+        prev.next = current
+        current.prev = prev
+
+        current.remove
+
+        expect(prev).to be_instance_of Node
+        expect(prev.next).to eq nil
+      end
+    end
+
+    context "when prev doesn't exist" do
+      it "links only next" do
+        current = Node.new 2
+        next_node = Node.new 3
+        current.next = next_node
+        next_node.prev = current
+
+        current.remove
+
+        expect(next_node).to be_instance_of Node
+        expect(next_node.prev).to eq nil
+      end
+    end
+  end
 
   describe ".generate_nodes" do
     it "generates nodes from array of values returning head" do

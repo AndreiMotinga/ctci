@@ -11,6 +11,12 @@ class Node
   #
   # end
 
+  def remove
+    next_node = self.next
+    prev.next = next_node if prev
+    next_node.prev = prev if next_node
+  end
+
   def print_nodes
     string = "#{self.value}"
     current = self.next
