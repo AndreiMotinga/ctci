@@ -1,7 +1,7 @@
 require_relative "../../linked_lists/node"
 
 describe Node do
-  it "is kinde of Node" do
+  it "is kind of Node" do
     expect(Node.new(1)).to be_instance_of Node
   end
 
@@ -25,14 +25,16 @@ describe Node do
     end
   end
 
-  describe "#previous" do
+  describe "#prev" do
     it "can be updated" do
       node = Node.new(1)
       prev = Node.new(2)
 
-      node.previous = prev
+      node.prev = prev
 
-      expect(node.previous).to eq prev
+      expect(node.prev).to eq prev
+    end
+  end
     end
   end
 end

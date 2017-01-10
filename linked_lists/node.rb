@@ -1,5 +1,5 @@
 class Node
-  attr_accessor :value, :next, :previous
+  attr_accessor :value, :next, :prev
 
   def initialize(value)
     @value = value
