@@ -1,9 +1,8 @@
 class Node
-  attr_accessor :value # todo rename to data
-  attr_reader :next, :prev
+  attr_reader :data, :next, :prev
 
-  def initialize(value)
-    @value = value
+  def initialize(data)
+    @data = data
   end
 
   def next=(node)
@@ -21,11 +20,11 @@ class Node
   # ex: remove duplicates from an unsorted linked list.
   # with temporary buffer
   def remove_dups
-    values = Set.new [value]
+    values = Set.new [data]
     current = self.next
     while current
       next_node = current.next
-      value = current.value
+      value = current.data
       values.include?(value) ? current.remove : values << value
       current = next_node
     end
@@ -37,10 +36,10 @@ class Node
   end
 
   def formatted_list
-    string = value.to_s
+    string = data.to_s
     current = self.next
     while current
-      string += " -> #{current.value}"
+      string += " -> #{current.data}"
       current = current.next
     end
     string

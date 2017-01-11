@@ -5,12 +5,12 @@ describe Node do
     expect(Node.new(1)).to be_instance_of Node
   end
 
-  describe "#value" do
+  describe "#data" do
     it "can be updated" do
       node = Node.new(4)
-      node.value = 5
+      node.data = 5
 
-      expect(node.value).to eq 5
+      expect(node.data).to eq 5
     end
   end
 
@@ -99,9 +99,9 @@ describe Node do
     it "generates nodes from array of values returning head" do
       head = Node.generate_nodes([1,2,2,2,3,4,3,5])
 
-      expect(head.value).to eq 1
-      expect(head.next.value).to eq 2
-      expect(head.next.prev.value).to eq 1
+      expect(head.data).to eq 1
+      expect(head.next.data).to eq 2
+      expect(head.next.prev.data).to eq 1
     end
   end
 
