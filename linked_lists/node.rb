@@ -27,15 +27,12 @@ class Node
     node.next ? list(node.next, msg) : msg[0..-5]
   end
 
-  def self.generate_nodes(values)
-    current = head = new values.first
-    values.each_with_index do |v, i|
-      next if i.zero?
-      next_node = new v
-      next_node.prev = current
-      current = next_node
-    end
-    head
+  def self.generate_nodes(current = nil, head = nil, values)
+    return head if values.empty?
+    next_node = new values.shift
+    next_node.prev = current
+    head ||= next_node
+    generate_nodes(next_node, head, values)
   end
 
   # EX: remove duplicates from an unsorted linked list.
