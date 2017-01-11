@@ -1,4 +1,5 @@
 class Node
+  # todo rename next to avoid keyword clashing
   attr_accessor :value, :next, :prev
 
   def initialize(value)
@@ -25,9 +26,9 @@ class Node
   end
 
   def print_nodes
-    string = "#{self.value}"
+    string = value.to_s
     current = self.next
-    while current do
+    while current
       string += " -> #{current.value}"
       current = current.next
     end
