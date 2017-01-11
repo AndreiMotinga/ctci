@@ -1,9 +1,21 @@
 class Node
-  # todo rename next to avoid keyword clashing
-  attr_accessor :value, :next, :prev
+  attr_accessor :value # todo rename to data
+  attr_reader :next, :prev
 
   def initialize(value)
     @value = value
+  end
+
+  def next=(node)
+    @next = node
+    return unless node
+    node.prev = self unless node.prev == self
+  end
+
+  def prev=(node)
+    @prev = node
+    return unless node
+    node.next = self unless node.next == self
   end
 
   # ex: remove duplicates from an unsorted linked list.
@@ -20,12 +32,11 @@ class Node
   end
 
   def remove
-    next_node = self.next
-    prev.next = next_node if prev
-    next_node.prev = prev if next_node
+    prev.next = self.next if prev
+    self.next.prev = prev if self.next
   end
 
-  def print_nodes
+  def formatted_list
     string = value.to_s
     current = self.next
     while current

@@ -22,6 +22,7 @@ describe Node do
       node.next = next_node
 
       expect(node.next).to eq next_node
+      expect(next_node.prev).to eq node
     end
   end
 
@@ -33,6 +34,7 @@ describe Node do
       node.prev = prev
 
       expect(node.prev).to eq prev
+      expect(prev.next).to eq node
     end
   end
 
@@ -41,7 +43,7 @@ describe Node do
     it "removes nodes with duplicate values" do
       head = Node.generate_nodes([1,3,2,2,4,3,5])
       head.remove_dups
-      expected = head.print_nodes # todo: rename to list
+      expected = head.formatted_list # todo: rename to list
       result = "1 -> 3 -> 2 -> 4 -> 5"
 
       expect(expected).to eq result
@@ -70,7 +72,6 @@ describe Node do
       it "links only previous" do
         prev = Node.new 1
         current = Node.new 2
-        prev.next = current
         current.prev = prev
 
         current.remove
@@ -85,7 +86,6 @@ describe Node do
         current = Node.new 2
         next_node = Node.new 3
         current.next = next_node
-        next_node.prev = current
 
         current.remove
 
@@ -105,13 +105,13 @@ describe Node do
     end
   end
 
-  describe "#print_nodes" do
+  describe "#formatted_list" do
     it "print next nodes values joined with ' -> '" do
       head = Node.generate_nodes([1,3,5])
 
       result = "1 -> 3 -> 5"
 
-      expect(head.print_nodes).to eq result
+      expect(head.formatted_list).to eq result
     end
   end
 end
