@@ -48,10 +48,9 @@ class Node
   def self.generate_nodes(values)
     current = head = new values.first
     values.each_with_index do |v, i|
-      next if i == 0
+      next if i.zero?
       next_node = new v
       next_node.prev = current
-      current.next = next_node
       current = next_node
     end
     head
