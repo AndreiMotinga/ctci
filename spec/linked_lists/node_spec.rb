@@ -34,7 +34,7 @@ describe Node do
     it "removes nodes with duplicate values" do
       head = Node.generate_nodes([1,3,2,2,4,3,5])
       head.remove_dups
-      expected = head.formatted_list # todo: rename to list
+      expected = Node.list(head)
       result = "1 -> 3 -> 2 -> 4 -> 5"
 
       expect(expected).to eq result
@@ -96,13 +96,13 @@ describe Node do
     end
   end
 
-  describe "#formatted_list" do
+  describe ".list" do
     it "print next nodes values joined with ' -> '" do
       head = Node.generate_nodes([1,3,5])
 
       result = "1 -> 3 -> 5"
 
-      expect(head.formatted_list).to eq result
+      expect(Node.list(head)).to eq result
     end
   end
 end

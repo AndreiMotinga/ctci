@@ -22,14 +22,9 @@ class Node
     self.next.prev = prev if self.next
   end
 
-  def formatted_list
-    string = data.to_s
-    current = self.next
-    while current
-      string += " -> #{current.data}"
-      current = current.next
-    end
-    string
+  def self.list(node, msg = "")
+    msg += "#{node.data} -> "
+    node.next ? list(node.next, msg) : msg[0..-5]
   end
 
   def self.generate_nodes(values)
