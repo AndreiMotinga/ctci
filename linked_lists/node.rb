@@ -70,5 +70,8 @@ class Node
       node = node.next
     end
     counter
+  def self.list_size(node, counter = 1)
+    return counter unless node.next
+    list_size(node.next, counter += 1)
   end
 end
