@@ -27,6 +27,12 @@ class Node
     node.next ? list(node.next, msg) : msg[0..-5]
   end
 
+  def self.to_array(node, arr = [])
+    arr << node.data
+    return arr unless node.next
+    to_array(node.next, arr)
+  end
+
   def self.generate_nodes(current = nil, head = nil, values)
     local_values = values.dup
     return head if local_values.empty?

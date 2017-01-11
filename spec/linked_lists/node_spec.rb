@@ -116,6 +116,23 @@ describe Node do
     end
   end
 
+  describe ".to_array" do
+    it "converts list to array" do
+      node = Node.new 1
+
+      expect(Node.to_array(node)).to eq [node.data]
+    end
+
+    it "converts list to array" do
+      arr = [1, 2, 3, 4, 5, 6, 7]
+
+      head = Node.generate_nodes(arr)
+      result = Node.to_array(head)
+
+      expect(result).to eq arr
+    end
+  end
+
   describe ".list_size" do
     it "returns number of nodes in the list" do
       head = Node.generate_nodes([1, 2, 3, 4, 5, 6, 7])
