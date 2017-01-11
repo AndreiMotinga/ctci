@@ -105,4 +105,12 @@ describe Node do
       expect(Node.list(head)).to eq result
     end
   end
+
+  describe ".list_size" do
+    it "returns number of nodes in the list" do
+      head = Node.generate_nodes([1, 2, 3, 4, 5, 6, 7])
+
+      expect(Node.list_size(head)).to eq 7
+    end
+  end
 end

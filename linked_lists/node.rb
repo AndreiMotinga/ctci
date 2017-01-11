@@ -62,4 +62,13 @@ class Node
       first = first.next
     end
   end
+
+  def self.list_size(node)
+    counter = 1
+    while node.next
+      counter += 1
+      node = node.next
+    end
+    counter
+  end
 end
