@@ -82,6 +82,32 @@ class Node
     list_size(node.next, counter += 1)
   end
 
+  # EX: Write a code to partition a linked list around value X, such that all
+  # nodes less than x come before all nodes greater or equal to x. If x is
+  # contained within the list, the values of x only need to be after the
+  # elements less than x. The partition element x can appear anywhere in the
+  # "right partition"; it does not need to appear between the left and right
+  # partitions.
+  # EXAMPLE:
+  # input: 3 -> 5 -> 8 -> 5 -> 10 -> 2 -> 1
+  # output: 3 -> 1 -> 2 -> 10 -> 5 -> 5 -> 8
+  def self.partition(node, partition)
+    head = node
+    current = node
+    while node
+      if node.data < partition
+        next_iterator = node.next # save position in list
+        node.remove # remove node from the list
+        current.insert(node)
+        current = node # update latest node that < partition
+        node = next_iterator
+      else
+        node = node.next
+      end
+    end
+    head
+  end
+
   def insert(node)
     temp = self.next
     self.next = node

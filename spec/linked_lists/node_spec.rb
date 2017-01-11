@@ -34,6 +34,7 @@ describe Node do
     it "removes nodes with duplicate values" do
       head = Node.generate_nodes([1, 3, 2, 2, 4, 3, 5])
       head.remove_dups
+      # todo swap terms
       expected = Node.list(head)
       result = "1 -> 3 -> 2 -> 4 -> 5"
 
@@ -138,6 +139,17 @@ describe Node do
       head = Node.generate_nodes([1, 2, 3, 4, 5, 6, 7])
 
       expect(Node.list_size(head)).to eq 7
+    end
+  end
+
+  describe ".partition" do
+    it "moves all nodes <= x to the left from x" do
+      head = Node.generate_nodes([3, 5, 8, 5, 10, 2, 1])
+
+      head = Node.partition(head, 5)
+      result = Node.to_array(head).first 3
+
+      expect(result).to eq [3, 2, 1]
     end
   end
 
