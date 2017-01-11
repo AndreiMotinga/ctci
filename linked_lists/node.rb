@@ -20,6 +20,7 @@ class Node
   def remove
     prev.next = self.next if prev
     self.next.prev = prev if self.next
+    self
   end
 
   def self.list(node, msg = "")
@@ -91,19 +92,13 @@ class Node
   # EXAMPLE:
   # input: 3 -> 5 -> 8 -> 5 -> 10 -> 2 -> 1
   # output: 3 -> 1 -> 2 -> 10 -> 5 -> 5 -> 8
-  def self.partition(node, partition)
-    head = node
-    current = node
+  def self.partition(node, partition, current = node, head = node)
     while node
-      if node.data < partition
-        next_iterator = node.next # save position in list
-        node.remove # remove node from the list
-        current.insert(node)
-        current = node # update latest node that < partition
-        node = next_iterator
-      else
-        node = node.next
-      end
+      next node = node.next unless node.data < partition
+      next_iterator = node.next     # save position
+      current.insert(node.remove)
+      current = node                # update latest node less than partition
+      node = next_iterator
     end
     head
   end
