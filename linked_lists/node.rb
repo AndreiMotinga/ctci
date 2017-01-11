@@ -108,4 +108,12 @@ class Node
     self.next = node
     node.next = temp
   end
+
+  def self.swap(left, right)
+    temp = left.dup
+    left.next = right.next
+    left.prev = right.prev
+    right.next = temp.next
+    right.prev = temp.prev
+  end
 end

@@ -164,4 +164,17 @@ describe Node do
       expect(result).to eq [3, 5, 8]
     end
   end
+
+  describe ".swap" do
+    it "swaps places of two nodes" do
+      head = Node.generate_nodes([1,2])
+      node = Node.new(3)
+      head.next.next = node  # list is 1 2 3
+
+      Node.swap(head, node)
+      result = Node.to_array(node)
+
+      expect(result).to eq [3, 2, 1]
+    end
+  end
 end
