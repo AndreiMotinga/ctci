@@ -28,11 +28,12 @@ class Node
   end
 
   def self.generate_nodes(current = nil, head = nil, values)
-    return head if values.empty?
-    next_node = new values.shift
+    local_values = values.dup
+    return head if local_values.empty?
+    next_node = new local_values.shift
     next_node.prev = current
     head ||= next_node
-    generate_nodes(next_node, head, values)
+    generate_nodes(next_node, head, local_values)
   end
 
   # EX: remove duplicates from an unsorted linked list.
