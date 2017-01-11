@@ -65,16 +65,9 @@ class Node
 
   # EX: Return Kth to last: Implement an algorithm to find the kth to last
   # element of a singly linked list.
-  def self.to_last(head, k)
-    size = list_size(head)
-    stop = size - k
-    counter = 0
-    node = head
-    while counter < size
-      return node if counter == stop
-      node = node.next
-      counter += 1
-    end
+  def self.to_last(node, k, counter = 0, stop = list_size(node) - k)
+    return node if counter == stop
+    to_last(node.next, k, counter += 1, stop)
   end
 
   def self.list_size(node, counter = 1)
