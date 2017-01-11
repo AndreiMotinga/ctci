@@ -17,19 +17,6 @@ class Node
     node.next = self unless node.next == self
   end
 
-  # ex: remove duplicates from an unsorted linked list.
-  # with temporary buffer
-  def remove_dups
-    values = Set.new [data]
-    current = self.next
-    while current
-      next_node = current.next
-      value = current.data
-      values.include?(value) ? current.remove : values << value
-      current = next_node
-    end
-  end
-
   def remove
     prev.next = self.next if prev
     self.next.prev = prev if self.next
@@ -54,5 +41,33 @@ class Node
       current = next_node
     end
     head
+  end
+
+  # EX: remove duplicates from an unsorted linked list.
+
+  # with temporary buffer
+  # def remove_dups
+  #   values = Set.new [data]
+  #   current = self.next
+  #   while current
+  #     next_node = current.next
+  #     value = current.data
+  #     values.include?(value) ? current.remove : values << value
+  #     current = next_node
+  #   end
+  # end
+
+  # without temporary buffer
+  def remove_dups
+    first = self
+    while first.next
+      second = first.next
+      first.next.remove if first.next.data == first.data
+      while second.next
+        second.next.remove if second.next.data == first.data
+        second = second.next
+      end
+      first = first.next
+    end
   end
 end
