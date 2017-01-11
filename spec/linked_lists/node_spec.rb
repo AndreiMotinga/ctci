@@ -32,7 +32,7 @@ describe Node do
   # ex: remove duplicates from an unsorted linked list.
   describe "#remove_dups" do
     it "removes nodes with duplicate values" do
-      head = Node.generate_nodes([1,3,2,2,4,3,5])
+      head = Node.generate_nodes([1, 3, 2, 2, 4, 3, 5])
       head.remove_dups
       expected = Node.list(head)
       result = "1 -> 3 -> 2 -> 4 -> 5"
@@ -88,7 +88,7 @@ describe Node do
 
   describe ".generate_nodes" do
     it "generates nodes from array of values returning head" do
-      head = Node.generate_nodes([1,2,2,2,3,4,3,5])
+      head = Node.generate_nodes([1, 2, 2, 2, 3, 4, 3, 5])
 
       expect(head.data).to eq 1
       expect(head.next.data).to eq 2
@@ -98,11 +98,21 @@ describe Node do
 
   describe ".list" do
     it "print next nodes values joined with ' -> '" do
-      head = Node.generate_nodes([1,3,5])
+      head = Node.generate_nodes([1, 3, 5])
 
       result = "1 -> 3 -> 5"
 
       expect(Node.list(head)).to eq result
+    end
+  end
+
+  describe ".to_last" do
+    it "returns Nth element to last element of a SINGLY linked list" do
+      head = Node.generate_nodes([1, 2, 3, 4, 5, 6, 7])
+
+      result = Node.to_last(head, 3).data
+
+      expect(result).to eq 5
     end
   end
 
