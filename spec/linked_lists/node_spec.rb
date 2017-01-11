@@ -140,4 +140,16 @@ describe Node do
       expect(Node.list_size(head)).to eq 7
     end
   end
+
+  describe "#insert" do
+    it "inserts node" do
+      head = Node.generate_nodes([3, 8])
+      node = Node.new 5
+
+      head.insert(node)
+      result = Node.to_array(head)
+
+      expect(result).to eq [3, 5, 8]
+    end
+  end
 end

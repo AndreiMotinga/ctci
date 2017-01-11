@@ -81,4 +81,10 @@ class Node
     return counter unless node.next
     list_size(node.next, counter += 1)
   end
+
+  def insert(node)
+    temp = self.next
+    self.next = node
+    node.next = temp
+  end
 end
