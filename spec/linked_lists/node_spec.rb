@@ -37,13 +37,6 @@ describe Node do
   end
 
   # ex: remove duplicates from an unsorted linked list.
-  # describe "#remove_dups" do
-  #   it "removes nodes with duplicate values" do
-  #     head = Node.generate_nodes([1,2,2,2,3,4,3,5])
-  #
-  #     expect(head)
-  #   end
-  # end
   describe "#remove_dups" do
     it "removes nodes with duplicate values" do
       head = Node.generate_nodes([1,3,2,2,4,3,5])

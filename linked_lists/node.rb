@@ -6,10 +6,17 @@ class Node
   end
 
   # ex: remove duplicates from an unsorted linked list.
-  # def remove_dups
-  #   duplicates = []
-  #
-  # end
+  # with temporary buffer
+  def remove_dups
+    values = Set.new [value]
+    current = self.next
+    while current
+      next_node = current.next
+      value = current.value
+      values.include?(value) ? current.remove : values << value
+      current = next_node
+    end
+  end
 
   def remove
     next_node = self.next
