@@ -9,6 +9,8 @@
 Classes are a blue-print for constructing computer models for real or virtual objects.
 Classes hold **data**, have **methods** that interact with that data, and are used to **instantiate objects**.
 
+#### What is the difference between class and superclass?
+
 #### What is an object?
 An instance of a class.
 To some, it's also the root class in ruby (Object).
@@ -240,3 +242,189 @@ end
 
 #### What are rubygems?  Any favorites not including rails?  Any that you've worked on personally?
 [rubygems](http://www.rubygems.org/) is package manager software for ruby libraries (i.e. gems).  The package manager has basic [CRUD](http://en.wikipedia.org/wiki/Create,_read,_update_and_delete) operations, dependency trees, and supports asynchronous communication between multiple gem servers.
+
+
+
+### Lambda
+Despite the fancy name, a lambda is just a **function**... peculiarly... without a name. They're **anonymous**, little functional spies sneaking into the rest of your code.
+
+Lambdas in Ruby are also objects, just like everything else! The last expression of a lambda is its return value, just like regular functions. As boring and familiar as that all sounds, it gives us a lot of power.
+
+As objects, lambdas have methods and can be assigned to variables. Let's try it!
+
+```
+l = lambda { "Do or do not" }
+puts l.call
+```
+
+```
+l = lambda do |string|
+  if string == "try"
+    return "There's no such thing"
+  else
+    return "Do or do not."
+  end
+end
+puts l.call("try") # Feel free to experiment with this
+```
+
+### Blocks
+
+A simpler way to describe blocks is “A block is code that you can store in a variable like any other object and run on demand.”
+
+```
+addition = lambda {|a, b| return a + b }
+puts addition.call(5, 6)
+```
+
+The `lambda` keyword is what is most commonly used to create a block in Ruby. There are other ways to do it, but lets keep things simple for now.
+
+```
+empty_block = lambda { }
+puts empty_block.object_id
+puts empty_block.class
+puts empty_block.class.superclass
+```
+gives us
+
+```
+23659940
+Proc
+Object
+```
+
+Another example
+
+```
+class Calculator
+  def add(a, b)
+    return a + b
+  end
+end
+
+addition_method = Calculator.new.method("add")
+addition =  addition_method.to_proc
+
+puts addition.call(5, 6)
+```
+And there you have it - a regular, old fashioned method converted to a fancy-pants block!
+
+### Lambda vs Blocks
+
+```
+puts lambda {}
+puts Proc.new {}
+```
+
+As you can see, both approaches produce an instance of a Proc, though the one created using lambda is clearly distinguished with the word `lambda` in parentheses - an unusual deviation from the norm.
+
+**Here’s an example that uses lambdas - the return within the block hands control back to the method.**
+
+
+```
+def a_method
+ lambda { return "we just returned from the block" }.call
+ return "we just returned from the calling method"
+end
+```
+
+```
+we just returned from the calling method
+```
+
+**Here’s one that uses Proc.new - the return within the block exits not just the block itself, but also the surrounding method.**
+
+```
+def a_method
+ Proc.new { return "we just returned from the block" }.call
+ return "we just returned from the calling method"
+end
+```
+
+```
+we just returned from the block
+```
+
+As a consequence, `Proc.new` is something that’s hardly ever used to explicitly create blocks because of these surprising return semantics. It is recommended that you avoid using this form unless absolutely necessary
+
+### Literal way of writing Lambda & Proc
+
+```
+short = ->(a, b) { a + b }
+puts short.call(2, 3)
+
+long = lambda { |a, b| a + b }
+puts long.call(2, 3)
+```
+
+```
+short = proc { |a, b| a + b }
+puts short.call(2, 3)
+
+long = Proc.new { |a, b| a + b }
+puts long.call(2, 3)
+```
+
+### How would you declare and use a constructor in Ruby?
+Constructors are declared via the initialize method and get called when you call on a new object to be created.
+
+Using the code snippet below, calling Order.new acts as a constructor for an object of the class Order.
+
+```
+class Human
+  attr_accessor :name
+
+  def initialize(name)
+    @name = name
+  end
+end
+```
+### How does a symbol differ from a string?
+Short answer: symbols are immutable and reusable, retaining the same object_id.
+
+### How and when would you declare a Global Variable?
+Global variables are declared with the ‘$’ symbol and can be declared and used anywhere within your program. You should use them sparingly to never.
+
+### How would you create getter and setter methods in Ruby?
+- attr_accessor creates getter and setter
+- attr_reader creates getter
+- attr_writer creates setter
+- or you can use usual methods to set and get instance variables
+
+### Describe the difference between class and instance variables?
+- Class variables are created with the prefix ‘@@’ and are shared by all objects in a class.
+  Considered a 'big no no'.
+- Instance variables are created with the prefix ‘@’ and belong to a single object within a class.
+
+### Explain some of the looping structures available in Ruby?
+For loop, While loop, Until Loop, do.
+
+###Explain what functional testing is:
+
+Functional testing in Rails allows you to test the response of  various actions contained in a controller. Using the Rails default test library, mini test, functional tests use a collection of assert statements that will tell your testing library to expect a certain response based on a control request passed in (either a get, post, patch, put, head, delete request).
+
+The two example tests below show functional tests for making sure the post and delete requests in our UsersController properly create and destroy users. The functional tests do this by making sure the requests result in a change in the User.count and that they then redirect to the desired pages.
+
+![image](http://cdn.skilledup.com/wp-content/uploads/2014/10/RoR_QA_funtional_tests-screenshot.jpg)
+
+### Inject
+Combines all elements of enum by applying a binary operation, specified by a block or a symbol that names a method or operator.
+
+```
+>> (1..3).inject { |sum,  memo| sum + memo }
+6
+>> (1..3).inject { |sum,  memo| sum * memo }
+6
+```
+
+### Map
+```
+(1..4).map { |i| i*i }      #=> [1, 4, 9, 16]
+(1..4).collect { "cat"  }   #=> ["cat", "cat", "cat", "cat"]
+```
+
+### What types of variabls are there in in ruby
+1. `foobar` local variables
+2. `@foobar` instance variables
+3. `@@foobar` class variables
+4. `$foobar` global variables
