@@ -3,3 +3,7 @@
 def permutation?(first, second)
   first.chars.sort == second.chars.sort
 end
+
+# return all permutations of a string
+def permutations(str)
+end

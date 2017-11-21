@@ -9,3 +9,19 @@ describe "#permutation" do
     expect(permutation?("qwerty", "andrei")).to be_falsey
   end
 end
+
+describe "#permutations" do
+  it "returns all permutations of a string" do
+    string = "ABC"
+    expected = %w(
+      ABC
+      ACB
+      BAC
+      BCA
+      CBA
+      CAB
+    )
+
+    expect(permutations(string)).to match_array(expected)
+  end
+end
