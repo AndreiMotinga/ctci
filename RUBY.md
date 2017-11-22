@@ -428,3 +428,84 @@ Combines all elements of enum by applying a binary operation, specified by a blo
 2. `@foobar` instance variables
 3. `@@foobar` class variables
 4. `$foobar` global variables
+
+
+
+#### Compare Symbol and String, why use one vs the other?
+#### Describe multiple ways to define an instance method in Ruby; now do the similar for class methods
+#### Which is generally the better option (not only for Ruby): a recursive function or an iterative one?
+#### What are the various Ruby runtimes, and how are they different?
+#### What does self mean when used in a class?
+#### What does it mean that "everything in Ruby is an object"?
+#### What is a Hash? How efficient is reading/writing/iterating over one?
+#### What is a block? Write a method that takes a block as an argument
+#### What about closures in Ruby? What are they?
+#### What is the difference between a lambda, a block and a proc?
+#### Explain what a ||= b means
+#### What is memoization? Why and when would you use it?
+#### Have you heard the term PORO? Do you know what it is?
+#### Is it bad to rescue Exception? Why?
+#### What's the difference between the & and && operators?
+#### What's the difference between the and and && operators? Why use one over the other?
+#### What are #method_missing and #send? Why are they useful?
+#### What is meta-programming, what methods of meta-programming does Ruby support, and when/why would you use it in a project?
+#### What does the #lazy method do to enumerators and why is that useful?
+#### Why do some methods end with a bang ! and others with question marks ?, what are they called and what do they do?
+#### Go through Basic OOP primitives like encapsulation, abstraction, polymorphism and inheritance
+#### Talk about SOLID principle
+#### What are mixins, how do they work, and how would you use them? What are some advantages of using them and what are some potential problems? Give examples to support your answers
+#### What's the difference between extend, prepend, and include?
+#### Describe access modifiers and how they are used within the ruby language (private, public, protected)
+#### How would you declare and use a constructor in Ruby?
+#### How would you create getter and setter methods in Ruby?
+#### What is a Class, what is an Object and why we need Module?
+#### Does Ruby support multiple inheritance?
+#### Explain what singleton methods are, what is Eigenclass in Ruby?
+#### Describe Ruby method lookup path
+#### Describe available Ruby callbacks and how can we use them in practice?
+#### Why Enumerable is so useful? Elaborate on methods like #each, #map, #inject, #reject, et cetera (also shortcut notation e.g. #reduce(:+))
+#### Why would you use BigDecimal over float?
+#### When do you prefer to use fetch over [] on Hash (and other way around) and why?
+#### What's the difference between local, @instance, @@class, and $global variables? Why and where would you use specific type?
+#### How can you implement method overloading?
+#### How can you call the base class method from inside of its overriden method?
+#### What is Global Interpreter Lock (GIL)?
+
+#### Ruby Supports Single Inheritance/multiple Inheritance Or Both?
+Ruby Supports only Single Inheritance
+
+#### Explain what is “Yield” in Ruby on Rails?
+
+A Ruby method that receives a code block invokes it by calling it with the “Yield”.
+
+#### Explain how Rails implements Ajax?
+
+Ajax powered web page retrieves the web page from the server which is new or changed unlike other web-page where you have to refresh the page to get the latest information.
+
+Rails triggers an Ajax Operation in following ways
+
+Some trigger fires: The trigger could be a user clicking on a link or button, the users inducing changes to the data in the field or on a form
+Web client calls the server: A Java-script method, XMLHttpRequest, sends data linked with the trigger to an action handler on the server. The data might be the ID of a checkbox, the whole form or the text in the entry field
+Server does process: The server side action handler does something with the data and retrieves an HTML fragment to the web client
+Client receives the response: The client side JavaScript, which Rails generates automatically, receives the HTML fragment and uses it to update a particular part of the current
+
+#### Explain what is Cross-Site Request Forgery (CSRF) and how Rails is protected against it?
+
+CSRF is a form of attack where hacker submits a page request on your behalf to a different website, causing damage or revealing your sensitive data. To protect from CSRF attacks, you have to add “protect_from_forgery” to your ApplicationController. This will cause Rails to require a CSRF token to process the request. CSRF token is given as a hidden field in every form created using Rails form builders.
+
+#### Explain what is rake in Rails?
+
+Rake is a Ruby Make; it is a Ruby utility that substitutes the Unix utility ‘make’, and uses a ‘Rakefile’ and ‘.rake files’ to build up a list of tasks. In Rails, Rake is used for normal administration tasks like migrating the database through scripts, loading a schema into the database, etc.
+
+#### Mention what is the difference between Procs and Blocks?
+
+The difference between Procs and Blocks,
+
+Block is just the part of the syntax of a method while proc has the characteristics of a block
+Procs are objects, blocks are not
+At most one block can appear in an argument list
+Only block is not able to be stored into a variable while Proc can
+
+
+#### Mention what is the difference extend and include?
+The “include” makes the module’s methods available to the instance of a class, while “extend” makes these methods available to the class itself.
