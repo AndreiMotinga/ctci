@@ -325,3 +325,136 @@ Only block is not able to be stored into a variable while Proc can
 
 #### Mention what is the difference extend and include?
 The “include” makes the module’s methods available to the instance of a class, while “extend” makes these methods available to the class itself.
+
+#### What are some strategies you can employ for reducing duplication and bloated Active Record models? What are the pros/cons of each strategy?
+
+Because Ruby on Rails is an MVC framework, it can become tempting to try and fit everything into the Model or the Controller. Ruby on Rails is a powerful framework that provides many different mechanisms for describing our application and keeping our models and controllers nice and tidy.
+
+Below are two ways of reducing fat models. They illustrate different levels of shared understanding between the extracted functionality and the model in question.
+
+##### 1. Use ActiveSupport::Concern
+
+If the code really belongs in the model (because it relies on ActiveRecord helpers), but there is a coherent grouping of methods, a concern might be worth implementing. For example, many models in a system could enable a user to create a note on a number of models:
+
+```
+require 'active_support/concern'
+
+module Concerns::Noteable
+  extend ActiveSupport::Concern
+
+  included do
+    has_many :notes, as: :noteable, dependent: :destroy
+  end
+
+  def has_simple_notes?
+    notes.not_reminders_or_todos.any?
+  end
+
+  def has_to_do_notes?
+    notes.to_dos.any?
+  end
+
+  def has_reminder_notes?
+    notes.reminders.any?
+  end
+  ...
+end
+```
+The Concern can then be applied like so:
+
+```
+class Language < ActiveRecord::Base
+  include TryFind
+  include Concerns::Noteable
+end
+```
+
+##### Pros:
+This is a great way of testing a cohesive piece of functionality and making it clear to other developers that these methods belong together. Unit tests can also operate on a test double or a stub, which will keep functionality as decoupled from the remaining model implementation as possible.
+
+##### Cons:
+ActiveSupport::Concerns can be a bit controversial. When they are over-used, the model becomes peppered in multiple files and it’s possible for multiple concerns to have clashing implementations. A concern is still fundamentally coupled to Rails.
+
+
+##### 2. User Service Class
+
+Depending on the source of the bloat, sometimes it makes better sense to delegate to a service class. 10 lines of validation code can be wrapped up in a custom validator and tucked away in app/validators. Transformation of form parameters can be placed in a custom form under app/forms. If you have custom business logic, it may be prudent to keep it in a lib/ folder until it’s well defined.
+
+The beauty of delegation is that the service classes will have no knowledge of the business domain and can be safely refactored and tested without any knowledge of the models.
+
+##### Pros:
+This approach is elegant and builds a custom library on top of what Ruby on Rails provides out of the box.
+
+##### Cons:
+If the underlying APIs change, your code will likely need to be updated to match. Instead of coupling to your model layer, you’ve now coupled yourself to either Ruby on Rails or a third-party library.
+
+
+
+#### What is metaprogramming?
+Ruby developers should know what’s metaprogramming, because it is widely used, especially in popular frameworks such as Rails, Sinatra, and Padrino. By using metaprogramming, we can reduce duplicate code, but there is a downside where it will increase the complexity of the code in the long run.
+
+Here’s an example of metaprogramming in Ruby:
+
+A user can have a lot of roles, and you want to check the authorization.
+
+Normal scenario:
+
+```
+def admin?
+     role ==  'admin'
+end
+
+def marketer?
+    role == 'marketer'
+end
+
+def sales?
+   role == 'sales'
+end
+```
+Metaprogramming:
+
+```
+['admin', 'marketer', 'sales'].each do |user_role|
+    define_method "#{user_role}?" do
+        role == user_role
+    end
+end
+```
+
+#### Given this Human class implementation
+```
+class Human
+
+    def talk
+        puts "I’m talking"
+    end
+
+     private
+
+     def whisper
+          puts "I’m whispering"
+     end
+end
+```
+What’s the output of :
+
+```
+Human.new.talk
+Human.new.whisper
+Human.new.send(:talk)
+Human.new.send(:whisper)
+
+...
+...
+
+I’m talking
+NoMethodError: private method ‘whisper’ called for #<Human:0x007fd97b292d48>
+I’m talking
+I’m whispering
+```
+To explain, the class object Human.new.talk is calling an instance method, so it works perfectly. The talk method is a public method and can be called by everyone.
+
+The class object Human.new.whisper is trying to access a private method, which it is not allowed to. Private and Protected methods are not accessible from outside. They are only used internally. This is an object-oriented design and can be used to structure the code, which the implementation is not supposed to expose to consumer object.
+
+Finally, Human.new.send(:talk) sends a bypass control check to the method so it can be called without raising an error. Same goes to Human.new.send(:whisper).
